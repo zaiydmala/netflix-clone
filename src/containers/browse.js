@@ -1,7 +1,8 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { SelectProfileContainer } from './profiles';
+import { FooterContainer } from './footer';
 import { FirebaseContext } from '../context/firebase';
-import { Card, Header, Loading } from '../components';
+import { Card, Header, Loading, Player } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 
@@ -71,9 +72,13 @@ export function BrowseContainer({ slides }) {
         <Header.Feature>
           <Header.FeatureCallOut>Watch Joker Now</Header.FeatureCallOut>
           <Header.Text>
-            In 1981 Gotham City, a struggling, mentally ill comic battles to be
-            seen. His life takes a dark, gut-wrenching turn after he lashes back
-            at attackers.
+            Forever alone in a crowd, failed comedian Arthur Fleck seeks
+            connection as he walks the streets of Gotham City. Arthur wears two
+            masks -- the one he paints for his day job as a clown, and the guise
+            he projects in a futile attempt to feel like he's part of the world
+            around him. Isolated, bullied and disregarded by society, Fleck
+            begins a slow descent into madness as he transforms into the
+            criminal mastermind known as the Joker.
           </Header.Text>
           <Header.PlayButton>Play</Header.PlayButton>
         </Header.Feature>
@@ -97,15 +102,16 @@ export function BrowseContainer({ slides }) {
               ))}
             </Card.Entities>
             <Card.Feature category={category}>
-              <p>hello</p>
-              {/* <Player>
+              
+              <Player>
                 <Player.Button />
-                <Player.Video src="videos.bunny.mp4" />
-              </Player> */}
+                <Player.Video src="/videos/bunny.mp4" />
+              </Player>
             </Card.Feature>
           </Card>
         ))}
       </Card.Group>
+      <FooterContainer />
     </>
   ) : (
     <SelectProfileContainer user={user} setProfile={setProfile} />
