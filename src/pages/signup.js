@@ -1,12 +1,12 @@
 import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import { FirebaseContext } from '../context/firebase';
+import { Form } from '../components';
 import { HeaderContainer } from '../containers/header';
 import { FooterContainer } from '../containers/footer';
-import { Form } from '../components';
 import * as ROUTES from '../constants/routes';
 
-export default function Signup() {
+export default function SignUp() {
   const history = useHistory();
   const { firebase } = useContext(FirebaseContext);
 
@@ -19,7 +19,8 @@ export default function Signup() {
 
   const handleSignup = (event) => {
     event.preventDefault();
-    firebase
+
+    return firebase
       .auth()
       .createUserWithEmailAndPassword(emailAddress, password)
       .then((result) =>
@@ -29,8 +30,7 @@ export default function Signup() {
             photoURL: Math.floor(Math.random() * 5) + 1,
           })
           .then(() => {
-            history(ROUTES.BROWSE);
-            //.push(ROUTES.BROWSE);
+            history.push(ROUTES.BROWSE);
           })
       )
       .catch((error) => {
@@ -50,7 +50,7 @@ export default function Signup() {
 
           <Form.Base onSubmit={handleSignup} method="POST">
             <Form.Input
-              placeholder="First Name"
+              placeholder="First name"
               value={firstName}
               onChange={({ target }) => setFirstName(target.value)}
             />
@@ -66,18 +66,17 @@ export default function Signup() {
               placeholder="Password"
               onChange={({ target }) => setPassword(target.value)}
             />
-            <Form.Submit disabled={isInvalid} type="submit">
+            <Form.Submit disabled={isInvalid} type="submit" data-testid="sign-up">
               Sign Up
             </Form.Submit>
-
-            <Form.Text>
-              Already a user? <Form.Link to="/signin">Sign in now.</Form.Link>
-            </Form.Text>
-            <Form.TextSmall>
-              This page is protected by Google reCAPTCHA to ensure you are not a
-              bot.
-            </Form.TextSmall>
           </Form.Base>
+
+          <Form.Text>
+            Already a user? <Form.Link to="/signin">Sign in now.</Form.Link>
+          </Form.Text>
+          <Form.TextSmall>
+            This page is protected by Google reCAPTCHA to ensure you're not a bot. Learn more.
+          </Form.TextSmall>
         </Form>
       </HeaderContainer>
       <FooterContainer />

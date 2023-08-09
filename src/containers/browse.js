@@ -6,6 +6,7 @@ import { Card, Header, Loading, Player } from '../components';
 import * as ROUTES from '../constants/routes';
 import logo from '../logo.svg';
 
+
 export function BrowseContainer({ slides }) {
   const [category, setCategory] = useState('series');
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,7 +62,7 @@ export function BrowseContainer({ slides }) {
                   <Header.TextLink>{user.displayName}</Header.TextLink>
                 </Header.Group>
                 <Header.Group>
-                  <Header.TextLink onClick={() => firebase.auth().signOut()}>
+                  <Header.TextLink onClick={() => firebase.auth().signOut().then()}>
                     Sign out
                   </Header.TextLink>
                 </Header.Group>
@@ -102,7 +103,6 @@ export function BrowseContainer({ slides }) {
               ))}
             </Card.Entities>
             <Card.Feature category={category}>
-              
               <Player>
                 <Player.Button />
                 <Player.Video src="/videos/bunny.mp4" />
